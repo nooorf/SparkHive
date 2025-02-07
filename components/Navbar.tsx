@@ -3,6 +3,7 @@ import React from 'react'
 import Image from 'next/image'
 import { auth, signIn, signOut } from '@/auth'
 
+//components are outside the app folder. We only need routes and entry points like page.tsx and layout.tsx in app folder
 const Navbar = async () => { //async function only on server side cannot be in "use client"
     const session = await auth()
     console.log(session)
