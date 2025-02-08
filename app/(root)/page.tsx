@@ -1,22 +1,16 @@
 
 import SearchForm from "@/components/SearchForm";
-import StartupCard from "@/components/StartupCard";
+import StartupCard, {StartupCardType} from "@/components/StartupCard";
+import { client } from "@/sanity/lib/client";
+import { STARTUPS_QUERY } from "@/sanity/lib/query";
+
 
 export default async function Home({searchParams}: {searchParams: Promise<{query?: string}>}) {
   const query = (await searchParams).query;
 
-  const posts = [
-    {
-      _id: 1,
-      createdAt: new Date(),
-      views: 55,
-      author: {_id: 1, name: 'John Doe'},
-      description: 'This is a description',
-      image: 'https://images.unsplash.com/photo-1634912314704-c646c586b131?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      category: 'Robots',
-      title: 'We Robotics'
-    }
-  ]
+  const posts = await client.fetch<StartupCardType[]>(STARTUPS_QUERY);
+
+
   //! mark in className to override other styles previously provided to an element
   return (
     <>

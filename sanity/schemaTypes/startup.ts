@@ -1,7 +1,7 @@
 
 import { defineField, defineType } from "sanity";
 
-export const author = defineType({
+export const startup = defineType({
     name: "startup",
     title: "Startup",
     type: "document",   
@@ -9,6 +9,7 @@ export const author = defineType({
         defineField({
             name: "title",
             type: "string",
+            validation: (Rule) => Rule.required().error("Title is required"),
         }),
 
         defineField({
@@ -21,29 +22,40 @@ export const author = defineType({
         defineField({
             name: "author",
             type: "reference", //since the author of each startup will be of type author that we created
-            to: { type: "author" }
+            to: { type: "author" },
+            validation: (Rule) => Rule.required().error("Author is required"),
         }),
         defineField({
             name: "views",
             type: "number",
-            validation: (Rule) => Rule.required(),
+            validation: (Rule) => Rule.required().error("Views are required"),
         }),
         defineField({
             name: "description",
             type: "text",
-            validation: (Rule) => Rule.required(),
+            validation: (Rule) => Rule.required().error("Description is required"),
         }),
         defineField({
             name: "category",
             type: "string",
-            validation: (Rule) => Rule.required(),
+            validation: (Rule) => Rule.required().error("Category is required"),
+        }),
+        defineField({
+            name: "image",
+            type: "url",
+            validation: (Rule) => Rule.required().error("Image is required"),
+        }),
+        defineField({
+            name: "createdAt", 
+            type: "date", 
+            validation: (Rule) => Rule.required().error("Date is required"),
+        }),
+        defineField({
+            name: "Pitch", 
+            type: "text", //can also use markdown plugin
+            validation: (Rule) => Rule.required().error("Pitch is required"),
         }),
        
     ],
-    preview: {
-        select: {
-            title: "name" //allows to select author by name for preview
-        },
-    },
 })
 
