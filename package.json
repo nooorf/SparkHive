@@ -12,6 +12,8 @@
     "typegen": "sanity schema extract --path=./sanity/schema.json && sanity typegen generate"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.1.2",
+    "@radix-ui/react-toast": "^1.2.6",
     "@sanity/image-url": "^1.1.0",
     "@sanity/vision": "^3.74.1",
     "@tailwindcss/typography": "^0.5.16",
@@ -23,9 +25,11 @@
     "next-sanity": "^9.8.29-canary.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-is": "^19.0.0",
     "sanity": "^3.74.1",
     "server-only": "^0.0.1",
     "shadcn": "^2.3.0",
+    "slugify": "^1.6.6",
     "styled-components": "^6.1.15",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7"

@@ -24,7 +24,7 @@ const StartupCard = ({post} : {post: StartupCardType}) => {//we have to define t
     <li className='startup-card group'>
         <div className='flex-between'>
             <p className='startup_card_date'>
-                {createdAt ? formatDate(createdAt) : ''}
+                {createdAt ? formatDate(createdAt) : formatDate(new Date())}
             </p>
             <div className='flex gap-1.5'>
                 <EyeIcon className='size-6 text-primary'/>

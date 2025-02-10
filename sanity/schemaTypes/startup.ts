@@ -28,7 +28,6 @@ export const startup = defineType({
         defineField({
             name: "views",
             type: "number",
-            validation: (Rule) => Rule.required().error("Views are required"),
         }),
         defineField({
             name: "description",
@@ -48,7 +47,6 @@ export const startup = defineType({
         defineField({
             name: "createdAt", 
             type: "date", 
-            validation: (Rule) => Rule.required().error("Date is required"),
         }),
         defineField({
             name: "Pitch", 
