@@ -1,5 +1,5 @@
 //startup/[id] : this is a dynamic page for startups
-import { STARTUP_BY_ID_QUERY } from '@/sanity/lib/query';
+import { PLAYLIST_BY_SLUG_QUERY, STARTUP_BY_ID_QUERY } from '@/sanity/lib/query';
 import React, { Suspense } from 'react'
 import { client } from '@/sanity/lib/client';
 import { formatDate } from '@/lib/utils';
@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {Skeleton} from '@/components/ui/skeleton';
 import  View  from '@/components/View';
+import StartupCard, { StartupCardType } from '@/components/StartupCard';
 
 
 const page = async ({params}: {params: Promise<{id: string}>}) => {
@@ -14,8 +15,8 @@ const page = async ({params}: {params: Promise<{id: string}>}) => {
 
     const post = await client.fetch(STARTUP_BY_ID_QUERY, {id});
 
-    console.log(post);
-
+    const {select: editorPosts} = await client.fetch(PLAYLIST_BY_SLUG_QUERY, {slug: 'editor-picks'}) /*check this*/
+    console.log(editorPosts.length)
     if (!post) {
         return {
             notFound: true, //from next navigation
@@ -52,7 +53,19 @@ const page = async ({params}: {params: Promise<{id: string}>}) => {
         <article className='prose max-w-4xl font-work-sans break-all'>{post.Pitch}</article>
       </div>
       <hr className='divider'/>
-      {/*TODO: Editor selected startups*/}
+
+      {editorPosts?.length > 0 && (
+        <div className='max-w-4xl mx-auto'>
+          <p className='text-30-semibold'>Editor Picks</p>
+
+          <ul className='mt-7 card_grid-sm'>
+            {editorPosts.map((post: StartupCardType, i: number) => (
+              <StartupCard key={i} post={post}/>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <Suspense fallback={<Skeleton className='view_skeleton'/>}> {/*from nextjs for dynamically rendered content; everything above this is static*/}
           <View id={id}/>
       </Suspense>

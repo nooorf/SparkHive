@@ -2,7 +2,9 @@ import Link from 'next/link'
 import React from 'react'
 import Image from 'next/image'
 import { auth, signIn, signOut } from '@/auth'
-import { LogOut } from 'lucide-react'
+import { BadgePlus, LogOut} from 'lucide-react'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { AvatarImage } from '@/components/ui/avatar'
 
 //components are outside the app folder. We only need routes and entry points like page.tsx and layout.tsx in app folder
 const Navbar = async () => { //async function only on server side cannot be in "use client"
@@ -18,7 +20,8 @@ const Navbar = async () => { //async function only on server side cannot be in "
                 {session && session.user ? ( //check if we have an active session and user id from that session
                     <>
                         <Link href='/startup/create'>
-                        <span className='max-sm: hidden'>Create</span>
+                        <span className='max-sm:hidden'>Create</span>
+                        <BadgePlus className='size-6 sm:hidden'/>
                         </Link>
 
                         <form action={async()=>{ /* We use React 19's <form> instead of a simple <button> because 
@@ -36,8 +39,11 @@ const Navbar = async () => { //async function only on server side cannot be in "
                             </button>
                         </form>
 
-                        <Link href={`/users/${session.user?.id}`}>
-                            <span>{session?.user?.name}</span>
+                        <Link href={`/users/${session?.id}`}>
+                            <Avatar className="size-10">
+                                <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || ""}/>
+                                <AvatarFallback>AV</AvatarFallback>
+                            </Avatar>
                         </Link>
                     </>
                     
