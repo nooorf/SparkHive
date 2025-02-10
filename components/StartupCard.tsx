@@ -42,7 +42,7 @@ const StartupCard = ({post} : {post: StartupCardType}) => {//we have to define t
             </div>
 
                 <Link href={`/user/${author?._id}`}>
-                    <Image src="https://placehold.co/48x48" alt='user-avatar' width={48} height={48} className='rounded-full'/>
+                    <Image src={author?.image!} alt={author?.name!} width={48} height={48} className='rounded-full'/>
                 </Link>
         </div>
         <Link href={`/startup/${_id}`}>

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 import Image from 'next/image'
 import { auth, signIn, signOut } from '@/auth'
+import { LogOut } from 'lucide-react'
 
 //components are outside the app folder. We only need routes and entry points like page.tsx and layout.tsx in app folder
 const Navbar = async () => { //async function only on server side cannot be in "use client"
@@ -17,7 +18,7 @@ const Navbar = async () => { //async function only on server side cannot be in "
                 {session && session.user ? ( //check if we have an active session and user id from that session
                     <>
                         <Link href='/startup/create'>
-                        <span>Create</span>
+                        <span className='max-sm: hidden'>Create</span>
                         </Link>
 
                         <form action={async()=>{ /* We use React 19's <form> instead of a simple <button> because 
@@ -29,7 +30,10 @@ const Navbar = async () => { //async function only on server side cannot be in "
                             "use server"
                             await signOut({redirectTo: '/'}) //redirectTo is a property of signOut function
                         }}>
-                            <button type='submit'><span>Logout</span></button>
+                            <button type='submit'>
+                                <span className='max-sm:hidden'>Logout</span>
+                                <LogOut className='size-6 sm:hidden text-red-500'/>
+                            </button>
                         </form>
 
                         <Link href={`/users/${session.user?.id}`}>
